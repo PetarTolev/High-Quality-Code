@@ -1,18 +1,23 @@
 ﻿namespace TankManufacturer
 {
+    using Factories;
     using System;
 
-    using Units;
-
-    class Program
+    public class Program
     {
         static void Main()
         {
-            var tiger = new Tank("Tiger", 4.5, 120);
-            var t34 = new Tank("T 34", 3.3, 75);
-            var m1Abrams = new Tank("M1 Abrams", 5.4, 120);
+            var factories = TankFactoryProvider.InitFactory();
 
-            Console.WriteLine(tiger);
+            var americanTank = factories.CreateTank(TankType.American);
+            Console.WriteLine(americanTank);
+
+            var germanTank = factories.CreateTank(TankType.German);
+            Console.WriteLine(germanTank); 
+
+            var russianTank = factories.CreateTank(TankType.Russian);
+            Console.WriteLine(russianTank);
+
         }
     }
 }

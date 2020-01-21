@@ -1,6 +1,6 @@
 ﻿namespace TankManufacturer.Units
 {
-    public class Tank
+    public class Tank : ITank
     {
         public Tank(string model, double speed, int attackDamage)
         {
