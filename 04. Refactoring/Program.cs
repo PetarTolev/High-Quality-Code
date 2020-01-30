@@ -1,33 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections;
 using System.Threading;
 
 namespace Snake
 {
-    struct Position
+    public class Program
     {
-        public int row;
-        public int col;
-        public Position(int row, int col)
+        public static void Main(string[] args)
         {
-            this.row = row;
-            this.col = col;
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            byte right = 0;
-            byte left = 1;
-            byte down = 2;
-            byte up = 3;
             int lastFoodTime = 0;
-            int foodDissapearTime = 8000;
+            int foodDisappearTime = 8000;
             int negativePoints = 0;
 
             Position[] directions = new Position[]
@@ -37,8 +20,9 @@ namespace Snake
                 new Position(1, 0), // down
                 new Position(-1, 0), // up
             };
+
             double sleepTime = 100;
-            int direction = right;
+            int direction = (int) Direction.Right;
             Random randomNumbersGenerator = new Random();
             Console.BufferHeight = Console.WindowHeight;
             lastFoodTime = Environment.TickCount;
@@ -71,6 +55,7 @@ namespace Snake
                     randomNumbersGenerator.Next(0, Console.WindowWidth));
             }
             while (snakeElements.Contains(food) || obstacles.Contains(food));
+
             Console.SetCursorPosition(food.col, food.row);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("@");
@@ -91,19 +76,19 @@ namespace Snake
                     ConsoleKeyInfo userInput = Console.ReadKey();
                     if (userInput.Key == ConsoleKey.LeftArrow)
                     {
-                        if (direction != right) direction = left;
+                        if (direction != (int) Direction.Right) direction = (int) Direction.Left;
                     }
                     if (userInput.Key == ConsoleKey.RightArrow)
                     {
-                        if (direction != left) direction = right;
+                        if (direction != (int) Direction.Left) direction = (int) Direction.Right;
                     }
                     if (userInput.Key == ConsoleKey.UpArrow)
                     {
-                        if (direction != down) direction = up;
+                        if (direction != (int) Direction.Down) direction = (int) Direction.Up;
                     }
                     if (userInput.Key == ConsoleKey.DownArrow)
                     {
-                        if (direction != up) direction = down;
+                        if (direction != (int) Direction.Up) direction = (int) Direction.Down;
                     }
                 }
 
@@ -137,10 +122,10 @@ namespace Snake
                 snakeElements.Enqueue(snakeNewHead);
                 Console.SetCursorPosition(snakeNewHead.col, snakeNewHead.row);
                 Console.ForegroundColor = ConsoleColor.Gray;
-                if (direction == right) Console.Write(">");
-                if (direction == left) Console.Write("<");
-                if (direction == up) Console.Write("^");
-                if (direction == down) Console.Write("v");
+                if (direction == (int) Direction.Right) Console.Write(">");
+                if (direction == (int) Direction.Left) Console.Write("<");
+                if (direction == (int) Direction.Up) Console.Write("^");
+                if (direction == (int) Direction.Down) Console.Write("v");
 
 
                 if (snakeNewHead.col == food.col && snakeNewHead.row == food.row)
@@ -180,7 +165,7 @@ namespace Snake
                     Console.Write(" ");
                 }
 
-                if (Environment.TickCount - lastFoodTime >= foodDissapearTime)
+                if (Environment.TickCount - lastFoodTime >= foodDisappearTime)
                 {
                     negativePoints = negativePoints + 50;
                     Console.SetCursorPosition(food.col, food.row);
