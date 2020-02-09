@@ -1,4 +1,6 @@
-﻿namespace Zombow.Core.CommandPattern
+﻿using System.Reflection;
+
+namespace Zombow.Core.CommandPattern
 {
     using Contracts;
     using System;
@@ -17,8 +19,15 @@
 
         public string ProcessInput(IList<string> inputParameters)
         {
-            string command = inputParameters[0].ToLower();
+            string command = inputParameters[0].ToLower() + "command";
             inputParameters.RemoveAt(0);
+
+            //todo: extract methods into classes
+
+            //var a = Assembly
+            //    .GetExecutingAssembly()
+            //    .GetTypes()
+            //    .FirstOrDefault(x => x.Name.ToLower() == command);
 
             var method = this.controller
                 .GetType()

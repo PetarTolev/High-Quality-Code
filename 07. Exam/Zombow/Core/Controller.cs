@@ -37,9 +37,7 @@
             string type = args[0];
             string name = args[1];
 
-            IBow bow = bowFactory.CreateBow(type, name);
-
-            string message = string.Empty;
+            IBow bow = bowFactory.CreateBow(type, name);  
 
             if (bow != null)
             { 
